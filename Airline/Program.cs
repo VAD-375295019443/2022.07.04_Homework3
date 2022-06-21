@@ -30,7 +30,7 @@ namespace Airline
                 if (strMenuNumber == "1")
                 {
                     //Метод создания авиакомпании.
-                    F_voiCreateAirline(ref AirLine, AirPlane);
+                    F_voiCreateAirline(ref AirLine, ref AirPlane);
 
 
 
@@ -73,13 +73,15 @@ namespace Airline
 
 
         //Метод создания авиакомпании.
-        public static void F_voiCreateAirline(ref List<claAirLine> AirLine, List<claAirPlane> AirPlane)
+        public static void F_voiCreateAirline(ref List<claAirLine> AirLine, ref List<claAirPlane> AirPlane)
         {
             Console.Clear();
             Console.WriteLine("Вы находитесь в разделе создания авиакомпаний.");
             Console.WriteLine();
+            Console.WriteLine("Введите название создаваемой авиакомпании:");
+            Console.WriteLine();
 
-            
+            string strNameAirline = Console.ReadLine();
 
 
 
@@ -124,11 +126,23 @@ namespace Airline
         }
 
 
+
+
+
+
+
+
         //Класс авиакомпаний.
         public class claAirLine
         {
             public int intId; //Код.
             public string strName; //Название авиакомпании.
+            
+            claAirLine(int intId, string strName)
+            {
+                this.intId = intId;
+                this.strName = strName;
+            }
         }
 
 
@@ -141,6 +155,16 @@ namespace Airline
             public double dblCargoCapacity; //Вместимость груза (кг).
             public double dblFlightRange; //Дальность полета (км).
             public int intFuelConsumption; //Количество потребляемого топлива (л).
+
+            claAirPlane(int intLinkCode, string strName, int intPassengerCapacity, double dblCargoCapacity, double dblFlightRange, int intFuelConsumption)
+            {
+                this.intLinkCode = intLinkCode;
+                this.strName = strName;
+                this.intPassengerCapacity = intPassengerCapacity;
+                this.dblCargoCapacity = dblCargoCapacity;
+                this.dblFlightRange = dblFlightRange;
+                this.intFuelConsumption = intFuelConsumption;
+            }
         }
     }
 }
