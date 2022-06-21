@@ -9,10 +9,13 @@ namespace Airline
             while (1 == 1)
             {
                 Console.Clear();
-                Console.WriteLine("Для создания нового аэропорта введите 1.");
-                Console.WriteLine("Для редактирования существующего аэропорта введите 2.");
-                Console.WriteLine("Для анализа показателей аэропорта введите 3.");
-                Console.WriteLine("Для выхода введите Exit.");
+                Console.WriteLine("РЕЕСТР МЕЖДУНАРОДНЫХ АВИАКОМПАНИЙ.");
+                Console.WriteLine();
+                Console.WriteLine("Введите номер пункта меню:");
+                Console.WriteLine("1 - Создание авиакомпании.");
+                Console.WriteLine("2 - Редактирование авиакомпании.");
+                Console.WriteLine("3 - Анализ показателей авиакомпании.");
+                Console.WriteLine("Для выхода наберите Exit.");
                 Console.WriteLine();
 
                 string strMenuNumber = Console.ReadLine();
@@ -20,14 +23,30 @@ namespace Airline
                 if (strMenuNumber == "1")
                 {
 
+                    //Вы вошли в раздел создания авиакомпаний.
+                    //Метод создания авиакомпании.
+
+
+                    
+
+
                 }
                 else if (strMenuNumber == "2")
                 {
 
+
+
+                    //Вы вошли в раздел редактирования авиакомпаний.
+                    //Метод редактирования авиакомпани.
+
                 }
                 else if (strMenuNumber == "3")
                 {
+                    //Вы вошли в раздел анализа показателей авиакомпаний.
+                    //Метод анализа показателей авиакомпании.
 
+
+                    //Вся информация о авиакомпаниях, находящихся в составе реестра.
                 }
                 else if (strMenuNumber == "Exit" || strMenuNumber == "exit")
                 {
