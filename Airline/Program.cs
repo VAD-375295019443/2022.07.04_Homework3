@@ -6,9 +6,52 @@ namespace Airline
     {
         static void Main(string[] args)
         {
+            while (1 == 1)
+            {
+                Console.Clear();
+                Console.WriteLine("Для создания нового аэропорта введите 1.");
+                Console.WriteLine("Для редактирования существующего аэропорта введите 2.");
+                Console.WriteLine("Для анализа показателей аэропорта введите 3.");
+                Console.WriteLine("Для выхода введите Exit.");
+                Console.WriteLine();
+
+                string strMenuNumber = Console.ReadLine();
+
+                if (strMenuNumber == "1")
+                {
+
+                }
+                else if (strMenuNumber == "2")
+                {
+
+                }
+                else if (strMenuNumber == "3")
+                {
+
+                }
+                else if (strMenuNumber == "Exit" || strMenuNumber == "exit")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Goodbye.");
+                    break;
+                }
+                else
+                {
+                    Console.Clear(); 
+                    Console.WriteLine("Вы ввели не корректные данные.");
+                    Console.WriteLine("Для продолжения нажмите Enter.");
+                    Console.WriteLine(); 
+                    strMenuNumber = Console.ReadLine();
+                    continue;
+                }
 
 
-            
+
+
+
+
+
+            }
         }
     }
 
