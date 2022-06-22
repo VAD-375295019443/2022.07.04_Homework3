@@ -9,10 +9,10 @@ namespace Airline
             while (true)
             {
                 List<claAirLine> AirLine = new List<claAirLine>(); //Создаем коллекцию авиакомпаний.
-                List<claAirPlane> AirPlane = new List<claAirPlane>(); //Создаем коллекцию самолетов.
+
                 //Сюда засунуть данные из файла.
 
-
+                AirLine[0].AirPlane[0].
 
                 Console.Clear();
                 Console.WriteLine("РЕЕСТР МЕЖДУНАРОДНЫХ АВИАКОМПАНИЙ.");
@@ -25,12 +25,11 @@ namespace Airline
                 Console.WriteLine("Для выхода наберите Exit.");
                 Console.WriteLine();
 
-                string strMenuNumber = Console.ReadLine();
+                string? strMenuNumber = Console.ReadLine();
 
                 if (strMenuNumber == "1")
                 {
-                    //Метод создания авиакомпании.
-                    F_voiCreateAirline(ref AirLine, ref AirPlane);
+                    F_voiCreateAirline(ref AirLine); //Метод создания авиакомпании.
 
 
 
@@ -73,17 +72,52 @@ namespace Airline
 
 
         //Метод создания авиакомпании.
-        public static void F_voiCreateAirline(ref List<claAirLine> AirLine, ref List<claAirPlane> AirPlane)
+        public static void F_voiCreateAirline(ref List<claAirLine> AirLine)
         {
-            Console.Clear();
-            Console.WriteLine("Вы находитесь в разделе создания авиакомпаний.");
-            Console.WriteLine();
-            Console.WriteLine("Введите название создаваемой авиакомпании:");
-            Console.WriteLine();
-
-            string strNameAirline = Console.ReadLine();
+            int intId; //Код AirLine.
 
 
+            if (AirLine.Count == 0)
+            {
+                intId = 0;
+            }
+            else
+            {
+                
+            }
+
+
+
+            while (true)
+            {
+
+                Console.Clear();
+                Console.WriteLine("Вы находитесь в разделе создания авиакомпаний.");
+                Console.WriteLine("Для выхода наберите Exit.");
+                Console.WriteLine();
+                Console.WriteLine("Введите название создаваемой авиакомпании:");
+                Console.WriteLine();
+
+
+                string? strNameAirline = Console.ReadLine();
+                if (strNameAirline == "Exit" || strNameAirline == "exit")
+                {
+                    break;
+                }
+                else if (strNameAirline == "" || strNameAirline == null)
+                {
+                    continue;
+                }
+                else
+                {
+
+                    AirLine.Add(new claAirLine(0, strNameAirline));
+
+
+
+                }
+
+            }
 
 
 
@@ -91,6 +125,64 @@ namespace Airline
 
 
         }
+
+
+
+
+
+
+
+
+
+        //Класс самолетов.
+        public class claAirPlane
+        {
+            public int intId; //Код связи AirPlane.
+            public string strName; //Название самолета (тип).
+            public int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
+            public double dblCargoCapacity; //Вместимость груза (кг).
+            public double dblFlightRange; //Дальность полета (км).
+            public int intFuelConsumption; //Количество потребляемого топлива (л).
+
+            public claAirPlane(int intId, string strName, int intPassengerCapacity, double dblCargoCapacity, double dblFlightRange, int intFuelConsumption)
+            {
+                this.intId = intId;
+                this.strName = strName;
+                this.intPassengerCapacity = intPassengerCapacity;
+                this.dblCargoCapacity = dblCargoCapacity;
+                this.dblFlightRange = dblFlightRange;
+                this.intFuelConsumption = intFuelConsumption;
+            }
+        }
+
+
+        //Класс авиакомпаний.
+        public class claAirLine
+        {
+            public int intId; //Код AirLine.
+            public string strName; //Название авиакомпании.
+            public List<claAirPlane> AirPlane = new List<claAirPlane>(); //Создаем коллекцию самолетов.
+
+
+            public claAirLine(int intId, string strName, List<claAirPlane> airPlane)
+            {
+                this.intId = intId;
+                this.strName = strName;
+                AirPlane = airPlane;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //Метод редактирования авиакомпании.
@@ -132,39 +224,5 @@ namespace Airline
 
 
 
-        //Класс авиакомпаний.
-        public class claAirLine
-        {
-            public int intId; //Код.
-            public string strName; //Название авиакомпании.
-            
-            claAirLine(int intId, string strName)
-            {
-                this.intId = intId;
-                this.strName = strName;
-            }
-        }
-
-
-        //Класс самолетов.
-        public class claAirPlane
-        {
-            public int intLinkCode; //Код связи.
-            public string strName; //Название самолета (тип).
-            public int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
-            public double dblCargoCapacity; //Вместимость груза (кг).
-            public double dblFlightRange; //Дальность полета (км).
-            public int intFuelConsumption; //Количество потребляемого топлива (л).
-
-            claAirPlane(int intLinkCode, string strName, int intPassengerCapacity, double dblCargoCapacity, double dblFlightRange, int intFuelConsumption)
-            {
-                this.intLinkCode = intLinkCode;
-                this.strName = strName;
-                this.intPassengerCapacity = intPassengerCapacity;
-                this.dblCargoCapacity = dblCargoCapacity;
-                this.dblFlightRange = dblFlightRange;
-                this.intFuelConsumption = intFuelConsumption;
-            }
-        }
     }
 }
