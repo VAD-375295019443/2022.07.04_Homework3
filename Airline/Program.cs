@@ -9,10 +9,7 @@ namespace Airline
             while (true)
             {
                 List<claAirLine> AirLine = new List<claAirLine>(); //Создаем коллекцию авиакомпаний.
-
                 //Сюда засунуть данные из файла.
-
-                AirLine[0].AirPlane[0].
 
                 Console.Clear();
                 Console.WriteLine("РЕЕСТР МЕЖДУНАРОДНЫХ АВИАКОМПАНИЙ.");
@@ -74,17 +71,9 @@ namespace Airline
         //Метод создания авиакомпании.
         public static void F_voiCreateAirline(ref List<claAirLine> AirLine)
         {
-            int intId; //Код AirLine.
+                AirLine.Add(new claAirLine("jjhj"));
+                AirLine[AirLine.Count - 1].AirPlane.Add(new claAirPlane("hjkh", 14, 12.5, 45.3, 56));
 
-
-            if (AirLine.Count == 0)
-            {
-                intId = 0;
-            }
-            else
-            {
-                
-            }
 
 
 
@@ -111,7 +100,6 @@ namespace Airline
                 else
                 {
 
-                    AirLine.Add(new claAirLine(0, strNameAirline));
 
 
 
@@ -127,26 +115,17 @@ namespace Airline
         }
 
 
-
-
-
-
-
-
-
         //Класс самолетов.
         public class claAirPlane
         {
-            public int intId; //Код связи AirPlane.
             public string strName; //Название самолета (тип).
             public int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
             public double dblCargoCapacity; //Вместимость груза (кг).
             public double dblFlightRange; //Дальность полета (км).
             public int intFuelConsumption; //Количество потребляемого топлива (л).
 
-            public claAirPlane(int intId, string strName, int intPassengerCapacity, double dblCargoCapacity, double dblFlightRange, int intFuelConsumption)
+            public claAirPlane(string strName, int intPassengerCapacity, double dblCargoCapacity, double dblFlightRange, int intFuelConsumption)
             {
-                this.intId = intId;
                 this.strName = strName;
                 this.intPassengerCapacity = intPassengerCapacity;
                 this.dblCargoCapacity = dblCargoCapacity;
@@ -159,16 +138,12 @@ namespace Airline
         //Класс авиакомпаний.
         public class claAirLine
         {
-            public int intId; //Код AirLine.
             public string strName; //Название авиакомпании.
             public List<claAirPlane> AirPlane = new List<claAirPlane>(); //Создаем коллекцию самолетов.
-
-
-            public claAirLine(int intId, string strName, List<claAirPlane> airPlane)
+            
+            public claAirLine(string strName)
             {
-                this.intId = intId;
                 this.strName = strName;
-                AirPlane = airPlane;
             }
         }
 
