@@ -4,10 +4,24 @@ namespace Airline
 {
     internal class Program
     {
+        
         public static void Main(string[] args)
         {
             List<claAirline> Airline = new List<claAirline>(); //Создаем коллекцию авиакомпаний.
             List<claAirplane> DatabaseAirplane = new List<claAirplane>(); //Создаем коллекцию базы данных воздушных судов.
+
+
+
+
+            //File.AppendAllText(strPath, "\n" + "Hello");
+            //File.AppendAllText(strPath, "\n" + "aaaaa");
+            //File.AppendAllText(strPath, "\n" + "bbbbbb");
+
+
+
+
+
+
 
             while (true)
             {
@@ -277,6 +291,91 @@ namespace Airline
             Console.WriteLine();
 
         }
+
+
+
+
+
+        public static void F_ReadDatabaseAirplane(ref List<claAirplane> DatabaseAirplane)
+        {
+            //Считывание базы данных самолетов из файла.
+            string strPath = @"d:\Registry\DatabaseAirplane.txt";
+            
+            string[] arrstrDatabaseAirplane = new string[0]; ;
+
+            string strName; //Название самолета (тип).
+            int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
+            double dblCargoCapacity; //Вместимость груза (кг).
+            double dblFlightRange; //Дальность полета (км).
+            double dblFuelConsumption; //Количество потребляемого топлива (л).
+
+            if (File.Exists(strPath) == true) //Если файл существует.
+            {
+                Array.Resize(ref arrstrDatabaseAirplane, 0);
+                arrstrDatabaseAirplane = File.ReadAllLines(strPath);
+
+                for (int int1 = 0; int1 <= arrstrDatabaseAirplane.Length - 1; int1++)
+                {
+                    strName = arrstrDatabaseAirplane[int1]; //Название самолета (тип).
+                    intPassengerCapacity = Convert.ToInt32(arrstrDatabaseAirplane[int1++]); //Вместимость пассажиров (количество посадочных мест).
+                    dblCargoCapacity = Convert.ToDouble(arrstrDatabaseAirplane[int1++]); //Вместимость груза (кг).
+                    dblFlightRange = Convert.ToDouble(arrstrDatabaseAirplane[int1++]); //Дальность полета (км).
+                    dblFuelConsumption = Convert.ToDouble(arrstrDatabaseAirplane[int1++]); //Количество потребляемого топлива (л).
+
+                    DatabaseAirplane.Add(new claAirplane(strName, intPassengerCapacity, dblCargoCapacity, dblFlightRange, dblFuelConsumption));
+                }
+            }
+        }
+
+
+        //Считывание авиакомпаний из файла.
+        public static void F_ReadAirline(ref List<claAirline> Airline)
+        {
+            string strPath;
+
+            string[] arrstrAirplane = new string[0]; ;
+            
+            string strName; //Название самолета (тип).
+            int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
+            double dblCargoCapacity; //Вместимость груза (кг).
+            double dblFlightRange; //Дальность полета (км).
+            double dblFuelConsumption; //Количество потребляемого топлива (л).
+            
+            for (int int1 = 0; ; int1++)
+            {
+                //Считывание авиакомпании.
+                strPath = @"d:\Registry\Airline\" + Convert.ToString(int1) + @"\Airline.txt";
+                if (File.Exists(strPath) == true) //Если файл существует.
+                {
+                    strName = File.ReadAllText(strPath);
+                    Airline.Add(new claAirline(strName));
+
+                    //Считывание воздушных судов.
+                    strPath = @"d:\Registry\Airline\" + Convert.ToString(int1) + @"\Airplane.txt";
+                    if (File.Exists(strPath) == true) //Если файл существует.
+                    {
+                        Array.Resize(ref arrstrAirplane, 0);
+                        arrstrAirplane = File.ReadAllLines(strPath);
+
+                        for (int int2 = 0; int2 <= arrstrAirplane.Length - 1; int2++)
+                        {
+                            strName = arrstrAirplane[int2]; //Название самолета (тип).
+                            intPassengerCapacity = Convert.ToInt32(arrstrAirplane[int2++]); //Вместимость пассажиров (количество посадочных мест).
+                            dblCargoCapacity = Convert.ToDouble(arrstrAirplane[int2++]); //Вместимость груза (кг).
+                            dblFlightRange = Convert.ToDouble(arrstrAirplane[int2++]); //Дальность полета (км).
+                            dblFuelConsumption = Convert.ToDouble(arrstrAirplane[int2++]); //Количество потребляемого топлива (л).
+
+                            Airline[Airline.Count - 1].Airplane.Add(new claAirplane(strName, intPassengerCapacity, dblCargoCapacity, dblFlightRange, dblFuelConsumption));
+                        }
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
 
 
 
