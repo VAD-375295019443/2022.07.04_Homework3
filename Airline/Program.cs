@@ -13,14 +13,8 @@ namespace Airline
             List<claAirline> Airline = new List<claAirline>(); //Создаем коллекцию авиакомпаний.
             F_ReadAirline(ref Airline);
 
-
-
-
-
             while (true)
             {
-                //Сюда засунуть данные из файла.
-
                 Console.Clear();
                 Console.WriteLine("РЕЕСТР МЕЖДУНАРОДНЫХ АВИАКОМПАНИЙ.");
                 Console.WriteLine();
@@ -74,6 +68,47 @@ namespace Airline
 
             }
         }
+
+
+
+        //Метод создания авиакомпаний.
+        public static void F_voiCreateAirline(ref List<claAirline> Airline)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("РЕЕСТР МЕЖДУНАРОДНЫХ АВИАКОМПАНИЙ.");
+                Console.WriteLine();
+                Console.WriteLine("Вы находитесь в разделе создания авиакомпаний.");
+                Console.WriteLine("Для выхода в главное меню наберите Exit.");
+                Console.WriteLine();
+                Console.WriteLine("Введите название создаваемой авиакомпании:");
+                Console.WriteLine();
+
+                string? strNameAirline = Console.ReadLine();
+                if (strNameAirline == "Exit" || strNameAirline == "exit")
+                {
+                    break;
+                }
+                else if (strNameAirline == "" || strNameAirline == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    Airline.Add(new claAirline(strNameAirline));
+
+                    int intNumberAirline = Airline.Count - 1;
+                    F_voiEditAirline(ref Airline, intNumberAirline);
+                    
+                    break;
+                }
+            }
+        }
+
+
+
+
 
 
 
@@ -183,43 +218,9 @@ namespace Airline
 
 
 
-        //Метод создания авиакомпаний.
-        public static void F_voiCreateAirline(ref List<claAirline> Airline)
-        {
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine("РЕЕСТР МЕЖДУНАРОДНЫХ АВИАКОМПАНИЙ.");
-                Console.WriteLine();
-                Console.WriteLine("Вы находитесь в разделе создания авиакомпаний.");
-                Console.WriteLine("Для выхода в главное меню наберите Exit.");
-                Console.WriteLine();
-                Console.WriteLine("Введите название создаваемой авиакомпании:");
-                Console.WriteLine();
-
-                string? strNameAirline = Console.ReadLine();
-                if (strNameAirline == "Exit" || strNameAirline == "exit")
-                {
-                    break;
-                }
-                else if (strNameAirline == "" || strNameAirline == null)
-                {
-                    continue;
-                }
-                else
-                {
-                    Airline.Add(new claAirline(strNameAirline));
-
-                    int intNumberAirline = Airline.Count - 1;
-                    F_voiEditAirline(ref Airline, intNumberAirline);
-                    
-                    break;
-                }
-            }
-        }
 
 
-        //Класс самолетов.
+        //Класс воздушных судов.
         public class claAirplane
         {
             public string strName; //Название самолета (тип).
@@ -273,7 +274,7 @@ namespace Airline
             Console.WriteLine("Введите номер пункта меню:");
             Console.WriteLine("1 - Добавление воздушного судна.");
             Console.WriteLine("2 - Удаление воздушного судна.");
-            Console.WriteLine("3 - Переход в базу данных воздушных судов.");
+            Console.WriteLine("3 - Редактирование базы данных воздушных судов.");
             Console.WriteLine("Exit - Выход в главное меню.");
             Console.WriteLine();
             Console.WriteLine("Авиакомпания:");
