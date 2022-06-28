@@ -11,7 +11,7 @@ namespace Airline
             F_ReadDatabaseAirplane(ref DatabaseAirplane); //Считываем базу данных воздушных судов из файла в коллекцию.
 
             List<claAirline> Airline = new List<claAirline>(); //Создаем коллекцию авиакомпаний.
-
+            F_ReadAirline(ref Airline);
 
 
 
@@ -391,47 +391,57 @@ namespace Airline
         //Считываем авиакомпании из файла в коллекцию.
         public static void F_ReadAirline(ref List<claAirline> Airline)
         {
-            string strPath;
+            string strPath = @"d:\Registry\Airline";
 
-            string[] arrstrAirplane = new string[0]; ;
-            
-            string strName; //Название самолета (тип).
-            int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
-            double dblCargoCapacity; //Вместимость груза (кг).
-            double dblFlightRange; //Дальность полета (км).
-            double dblFuelConsumption; //Количество потребляемого топлива (л).
-            
-            for (int int1 = 0; ; int1++)
+            if (Directory.Exists(strPath) == false) //Если директории не существует.
             {
-                //Считывание авиакомпании.
-                strPath = @"d:\Registry\Airline\" + Convert.ToString(int1) + @"\Airline.txt";
-                if (File.Exists(strPath) == true) //Если файл существует.
+                Directory.CreateDirectory(strPath); //Создаем.
+            }
+            else
+            {
+                string[] arrstrAirplane = new string[0]; ;
+            
+                string strName; //Название самолета (тип).
+                int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
+                double dblCargoCapacity; //Вместимость груза (кг).
+                double dblFlightRange; //Дальность полета (км).
+                double dblFuelConsumption; //Количество потребляемого топлива (л).
+            
+                for (int int1 = 0; ; int1++)
                 {
-                    strName = File.ReadAllText(strPath);
-                    Airline.Add(new claAirline(strName));
-
-                    //Считывание воздушных судов.
-                    strPath = @"d:\Registry\Airline\" + Convert.ToString(int1) + @"\Airplane.txt";
+                    strPath = $@"d:\Registry\Airline\{Convert.ToString(int1)}-Airline.txt";
                     if (File.Exists(strPath) == true) //Если файл существует.
                     {
-                        Array.Resize(ref arrstrAirplane, 0);
-                        arrstrAirplane = File.ReadAllLines(strPath);
+                        strName = File.ReadAllText(strPath);
+                        Airline.Add(new claAirline(strName));
 
-                        for (int int2 = 0; int2 <= arrstrAirplane.Length - 1; int2++)
+                        //Считывание воздушных судов.
+                        strPath = $@"d:\Registry\Airline\{Convert.ToString(int1)}-Airplane.txt";
+                        if (File.Exists(strPath) == true) //Если файл существует.
                         {
-                            strName = arrstrAirplane[int2]; //Название самолета (тип).
-                            intPassengerCapacity = Convert.ToInt32(arrstrAirplane[int2++]); //Вместимость пассажиров (количество посадочных мест).
-                            dblCargoCapacity = Convert.ToDouble(arrstrAirplane[int2++]); //Вместимость груза (кг).
-                            dblFlightRange = Convert.ToDouble(arrstrAirplane[int2++]); //Дальность полета (км).
-                            dblFuelConsumption = Convert.ToDouble(arrstrAirplane[int2++]); //Количество потребляемого топлива (л).
+                            Array.Resize(ref arrstrAirplane, 0);
+                            arrstrAirplane = File.ReadAllLines(strPath);
 
-                            Airline[Airline.Count - 1].Airplane.Add(new claAirplane(strName, intPassengerCapacity, dblCargoCapacity, dblFlightRange, dblFuelConsumption));
+                            for (int int2 = 0; int2 <= arrstrAirplane.Length - 1; int2++)
+                            {
+                                strName = arrstrAirplane[int2]; //Название самолета (тип).
+                                int2++;
+                                intPassengerCapacity = Convert.ToInt32(arrstrAirplane[int2]); //Вместимость пассажиров (количество посадочных мест).
+                                int2++;
+                                dblCargoCapacity = Convert.ToDouble(arrstrAirplane[int2]); //Вместимость груза (кг).
+                                int2++;
+                                dblFlightRange = Convert.ToDouble(arrstrAirplane[int2]); //Дальность полета (км).
+                                int2++; 
+                                dblFuelConsumption = Convert.ToDouble(arrstrAirplane[int2]); //Количество потребляемого топлива (л).
+
+                                Airline[Airline.Count - 1].Airplane.Add(new claAirplane(strName, intPassengerCapacity, dblCargoCapacity, dblFlightRange, dblFuelConsumption));
+                            }
                         }
                     }
-                }
-                else
-                {
-                    break;
+                    else
+                    {
+                        break;
+                    }
                 }
             }
         }
@@ -447,7 +457,7 @@ namespace Airline
                 Directory.Delete(strPath, true); //Удаляем.
             }
 
-            Directory.CreateDirectory(strPath);
+            Directory.CreateDirectory(strPath); //Создаем заново чистую.
 
             strPath = @"d:\Registry\DatabaseAirplane\DatabaseAirplane.txt";
             
@@ -476,11 +486,53 @@ namespace Airline
         }
 
 
+        //Сохраняем авиакомпании из коллекции в файл.
+        public static void F_WriteAirline(ref List<claAirline> Airline)
+        {
+            string strPath = @"d:\Registry\Airline";
 
+            if (Directory.Exists(strPath) == true) //Если директория существует.
+            {
+                Directory.Delete(strPath, true); //Удаляем.
+            }
 
+            Directory.CreateDirectory(strPath); //Создаем заново чистую.
 
+            if (Airline.Count > 0)
+            {
+                for (int int1 = 0; int1 <= Airline.Count - 1; int1++)
+                {
+                    strPath = $@"d:\Registry\Airline\{Convert.ToString(int1)}-Airline.txt";
 
+                    File.WriteAllText(strPath, Airline[int1].strName); //Название авиакомпании.
 
+                    if (Airline[int1].Airplane.Count > 0)
+                    {
+                        strPath = $@"d:\Registry\Airline\{Convert.ToString(int1)}-Airplane.txt";
+
+                        for (int int2 = 0; int2 <= Airline[int1].Airplane.Count - 1; int2++)
+                        {
+                            if (File.Exists(strPath) == true) //Если файл существует.
+                            {
+                                File.AppendAllText(strPath, "\n" + Airline[int1].Airplane[int2].strName); //Название самолета (тип).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].intPassengerCapacity)); //Вместимость пассажиров (количество посадочных мест).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].dblCargoCapacity)); //Вместимость груза (кг).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].dblFlightRange)); //Дальность полета (км).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].dblFuelConsumption)); //Количество потребляемого топлива (л).
+                            }
+                            else
+                            {
+                                File.AppendAllText(strPath, Airline[int1].Airplane[int2].strName); //Название самолета (тип).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].intPassengerCapacity)); //Вместимость пассажиров (количество посадочных мест).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].dblCargoCapacity)); //Вместимость груза (кг).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].dblFlightRange)); //Дальность полета (км).
+                                File.AppendAllText(strPath, "\n" + Convert.ToString(Airline[int1].Airplane[int2].dblFuelConsumption)); //Количество потребляемого топлива (л).
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 
 
