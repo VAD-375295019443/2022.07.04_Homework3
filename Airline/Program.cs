@@ -4,7 +4,6 @@ namespace Airline
 {
     internal class Program
     {
-        
         public static void Main(string[] args)
         {
             List<claAirplane> DatabaseAirplane = new List<claAirplane>(); //Создаем коллекцию базы данных воздушных судов.
@@ -57,32 +56,47 @@ namespace Airline
                 Console.WriteLine();
 
                 string? strMenuNumber = Console.ReadLine();
+                int intAirlineNumber;
 
                 if (strMenuNumber == "1")
-                {
-                    F_voiCreateAirline(ref Airline, ref DatabaseAirplane);
-
+                { 
+                    //Создание авиакомпаний.
+                    F_voiCreateAirline(ref Airline, ref DatabaseAirplane); //Метод создания авиакомпаний.
                 }
                 else if (strMenuNumber == "2")
                 {
+                    //Редактирование авиакомпаний.
+                    Console.WriteLine("Введите номер редактируемой авиакомпании:");
+                    Console.WriteLine();
                     
-                    
-                    
-                    
-                    
-                    
-                    //F_voiEditAirline(intAirlineNumber, ref Airline, ref DatabaseAirplane); //Метод редактирования авиакомпанй.
+                    intAirlineNumber = Convert.ToInt32(Console.ReadLine());
+
+                    if (intAirlineNumber >= 0 && intAirlineNumber <= Airline.Count - 1) //Если такой номер авиакомпании есть.
+                    {
+                        F_voiEditAirline(intAirlineNumber, ref Airline, ref DatabaseAirplane); //Метод редактирования авиакомпанй.
+                    }
                 }
                 else if (strMenuNumber == "3")
                 {
+                    //Анализ показателей авиакомпаний.
                     //Метод анализа показателей авиакомпаний.
                 }
                 else if (strMenuNumber == "4")
                 {
-                    //Метод удаления авиакомпаний.
+                    //Удаление авиакомпаний.
+                    Console.WriteLine("Введите номер удаляемой авиакомпании:");
+                    Console.WriteLine();
+
+                    intAirlineNumber = Convert.ToInt32(Console.ReadLine());
+
+                    if (intAirlineNumber >= 0 && intAirlineNumber <= Airline.Count - 1) //Если такой номер авиакомпании есть.
+                    {
+                        Airline.RemoveRange(intAirlineNumber, 1);
+                    }
                 }
                 else if (strMenuNumber == "5")
                 {
+                    //Редактирование базы данных воздушных судов.
                     F_DatabaseAirplane(ref DatabaseAirplane); //Метод редактирования базы данных воздушных судов.
                 }
                 else if (strMenuNumber == "Exit" || strMenuNumber == "exit")
@@ -95,12 +109,8 @@ namespace Airline
                 {
                     continue;
                 }
-
-
             }
         }
-
-
 
 
         //Метод создания авиакомпаний.
@@ -120,10 +130,6 @@ namespace Airline
                 F_voiEditAirline(intAirlineNumber, ref Airline, ref DatabaseAirplane);
             }
         }
-
-
-
-
 
 
         //Метод редактирования авиакомпаний.
@@ -160,14 +166,7 @@ namespace Airline
                 Console.WriteLine("Введите номер пункта меню:");
                 Console.WriteLine("1 - Добавление воздушного судна.");
                 Console.WriteLine("2 - Удаление воздушного судна.");
-                
-                
-                                                                                    //Редактор базы данных возд судов.
-                
-                
-                
-                
-                
+                Console.WriteLine("3 - Редактирование базы данных воздушных судов.");
                 Console.WriteLine("Exit - Возврат в предыдущее меню.");
                 Console.WriteLine();
 
@@ -189,11 +188,10 @@ namespace Airline
                     }
 
                     Console.WriteLine();
-
                     Console.WriteLine("Введите номер добавляемого воздушного судна:");
                     intAirplaneNumber = Convert.ToInt32(Console.ReadLine());
 
-                    if (intAirplaneNumber >= 0 && intAirplaneNumber <= DatabaseAirplane.Count-1) //Если такой номер воздушного судна есть в базе данных.
+                    if (intAirplaneNumber >= 0 && intAirplaneNumber <= DatabaseAirplane.Count - 1) //Если такой номер воздушного судна есть в базе данных.
                     {
                         Airline[intAirlineNumber].Airplane.Add(new claAirplane(DatabaseAirplane[intAirplaneNumber].strName, DatabaseAirplane[intAirplaneNumber].intPassengerCapacity, DatabaseAirplane[intAirplaneNumber].dblCargoCapacity, DatabaseAirplane[intAirplaneNumber].dblFlightRange, DatabaseAirplane[intAirplaneNumber].dblFuelConsumption));
                         F_WriteAirline(Airline);
@@ -204,11 +202,15 @@ namespace Airline
                     Console.WriteLine("Введите номер удаляемого воздушного судна:");
                     intAirplaneNumber = Convert.ToInt32(Console.ReadLine());
 
-                    if (intAirplaneNumber >= 0 && intAirplaneNumber <= Airline[intAirlineNumber].Airplane.Count-1) //Если такой номер воздушного судна есть.
+                    if (intAirplaneNumber >= 0 && intAirplaneNumber <= Airline[intAirlineNumber].Airplane.Count - 1) //Если такой номер воздушного судна есть.
                     {
                         Airline[intAirlineNumber].Airplane.RemoveRange(intAirplaneNumber, 1);
                         F_WriteAirline(Airline);
                     }
+                }
+                else if (strMenuNumber == "3")
+                {
+                    F_DatabaseAirplane(ref DatabaseAirplane); //Метод редактирования базы данных воздушных судов.
                 }
                 else if (strMenuNumber == "Exit" || strMenuNumber == "exit")
                 {
@@ -225,20 +227,27 @@ namespace Airline
 
 
 
+        //Метод анализа показателей авиакомпаний.
+        public static void F_voiAnalysisAirline()
+        {
+            Console.Clear();
+            Console.WriteLine("РЕЕСТР МЕЖДУНАРОДНЫХ АВИАКОМПАНИЙ.");
+            Console.WriteLine();
+            Console.WriteLine("Вы находитесь в разделе анализа показателей авиакомпаний.");
+            Console.WriteLine();
 
 
 
-
+            //Вся информация о авиакомпаниях, зарегистрированных в реестре.
+        }
         
-
-
         
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
         //Метод редактирования базы данных воздушных судов.
         public static void F_DatabaseAirplane(ref List<claAirplane> DatabaseAirplane)
         {
@@ -334,18 +343,6 @@ namespace Airline
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         //Класс воздушных судов.
         public class claAirplane
         {
@@ -377,62 +374,6 @@ namespace Airline
                 this.strName = strName;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Метод анализа авиакомпаний.
-        public static void F_voiAnalysisAirline()
-        {
-            Console.Clear();
-            Console.WriteLine("Вы находитесь в разделе анализа показателей авиакомпаний.");
-            Console.WriteLine();
-            
-            
-            
-            //Вся информация о авиакомпаниях, зарегистрированных в реестре.
-        }
-
-
-        //Метод удаления авиакомпаний.
-        public static void F_voiDeleteAirline()
-        {
-            Console.Clear();
-            Console.WriteLine("Вы находитесь в разделе удаления авиакомпаний.");
-            Console.WriteLine();
-
-        }
-
-
-
-
-
-
-        //Метод выбора авиакомпаний.
-        public static int F_intSelectAirline(ref List<claAirline> Airline)
-        {
-
-
-
-
-            return (1);
-        }
-
-
-
-
-
-
 
 
         //Считываем базу данных воздушных судов из файла в коллекцию.
@@ -625,9 +566,5 @@ namespace Airline
                 }
             }
         }
-
-
-
-
     }
 }
