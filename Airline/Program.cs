@@ -736,7 +736,7 @@ namespace Airline
         }
 
 
-        //Метод расчета средних значений параметров.
+        //Метод расчета средних значений параметров.-+
         public static void F_voiParameterAnalysisAverage(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
         {
             double dblResult = 0;
