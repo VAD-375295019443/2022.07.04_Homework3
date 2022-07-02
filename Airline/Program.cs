@@ -10,7 +10,7 @@ namespace Airline
             F_ReadDatabaseAirplane(ref DatabaseAirplane); //Считываем базу данных воздушных судов из файла в коллекцию.
 
             List<claAirline> Airline = new List<claAirline>(); //Создаем коллекцию авиакомпаний.
-            F_ReadAirline(ref Airline);
+            F_ReadAirline(ref Airline); //Считываем авиакомпании из файла в коллекцию.
 
             while (true)
             {
@@ -86,7 +86,7 @@ namespace Airline
 
                     if (intAirlineNumber >= 0 && intAirlineNumber <= Airline.Count - 1) //Если такой номер авиакомпании есть.
                     {
-                        //F_voiEditAirline(intAirlineNumber, ref Airline, ref DatabaseAirplane); //Метод редактирования авиакомпанй.
+                        F_voiAnalysisAirline(intAirlineNumber, ref Airline); //Метод анализа параметров авиакомпанй.
                     }
                 }
                 else if (strMenuNumber == "4")
@@ -232,9 +232,6 @@ namespace Airline
         }
 
 
-
-
-
         //Метод анализа показателей авиакомпаний.
         public static void F_voiAnalysisAirline(int intAirlineNumber, ref List<claAirline> Airline)
         {
@@ -291,24 +288,81 @@ namespace Airline
                     strMenuNumber = Console.ReadLine();
                     Console.WriteLine();
 
-
-
-
-
-
-
-
-
-
+                    if (strMenuNumber == "1")
+                    {
+                        F_voiParameterAnalysisTotal(intAirlineNumber, Airline, 1);
+                    }
+                    else if (strMenuNumber == "2")
+                    {
+                        F_voiParameterAnalysisTotal(intAirlineNumber, Airline, 2);
+                    }
+                    else if (strMenuNumber == "3")
+                    {
+                        F_voiParameterAnalysisTotal(intAirlineNumber, Airline, 3);
+                    }
+                    else if (strMenuNumber == "4")
+                    {
+                        F_voiParameterAnalysisTotal(intAirlineNumber, Airline, 4);
+                    }
+                    else if (strMenuNumber == "5")
+                    {
+                        F_voiParameterAnalysisAverage(intAirlineNumber, Airline, 1);
+                    }
+                    else if (strMenuNumber == "6")
+                    {
+                        F_voiParameterAnalysisAverage(intAirlineNumber, Airline, 2);
+                    }
+                    else if (strMenuNumber == "7")
+                    {
+                        F_voiParameterAnalysisAverage(intAirlineNumber, Airline, 3);
+                    }
+                    else if (strMenuNumber == "8")
+                    {
+                        F_voiParameterAnalysisAverage(intAirlineNumber, Airline, 4);
+                    }
+                    else if (strMenuNumber == "9")
+                    {
+                        F_dblParameterAnalysisSorting(intAirlineNumber, Airline, 1);
+                    }
+                    else if (strMenuNumber == "10")
+                    {
+                        F_dblParameterAnalysisSorting(intAirlineNumber, Airline, 2);
+                    }
+                    else if (strMenuNumber == "11")
+                    {
+                        F_dblParameterAnalysisSorting(intAirlineNumber, Airline, 3);
+                    }
+                    else if (strMenuNumber == "12")
+                    {
+                        F_dblParameterAnalysisSorting(intAirlineNumber, Airline, 4);
+                    }
+                    else if (strMenuNumber == "13")
+                    {
+                        F_dblParameterAnalysisRequest(intAirlineNumber, Airline, 1);
+                    }
+                    else if (strMenuNumber == "14")
+                    {
+                        F_dblParameterAnalysisRequest(intAirlineNumber, Airline, 2);
+                    }
+                    else if (strMenuNumber == "15")
+                    {
+                        F_dblParameterAnalysisRequest(intAirlineNumber, Airline, 3);
+                    }
+                    else if (strMenuNumber == "16")
+                    {
+                        F_dblParameterAnalysisRequest(intAirlineNumber, Airline, 4);
+                    }
+                    else if (strMenuNumber == "Exit" || strMenuNumber == "exit")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
         }
-
-
-
-
-
-
 
 
         //Метод редактирования базы данных воздушных судов.
@@ -316,7 +370,7 @@ namespace Airline
         {
             int intAirplaneNumber; //Номер воздушного судна.
 
-            string strName; //Название самолета (тип).
+            string? strName; //Название самолета (тип).
             int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
             double dblCargoCapacity; //Вместимость груза (кг).
             double dblFlightRange; //Дальность полета (км).
@@ -631,7 +685,8 @@ namespace Airline
         }
 
 
-        public static double F_dblParameterAnalysisTotal(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
+        //Метод расчета общих значений параметров.
+        public static void F_voiParameterAnalysisTotal(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
         {
             double dblResult = 0;
 
@@ -654,11 +709,35 @@ namespace Airline
                     dblResult = dblResult + Airline[intAirlineNumber].Airplane[int1].dblFuelConsumption;
                 }
             }
-            return (dblResult);
+
+            if (intParameterNumber == 1)
+            {
+                Console.WriteLine($"Общая вместимость пассажиров: {dblResult}");
+                Console.WriteLine();
+            }
+            else if (intParameterNumber == 2)
+            {
+                Console.WriteLine($"Общая грузоподъемность: {dblResult}");
+                Console.WriteLine();
+            }
+            else if (intParameterNumber == 3)
+            {
+                Console.WriteLine($"Общая дальность полета: {dblResult}");
+                Console.WriteLine();
+            }
+            else if (intParameterNumber == 4)
+            {
+                Console.WriteLine($"Общее количество потребляемого топлива: {dblResult}");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Для продолжения нажмите Enter.");
+            string? strPause = Console.ReadLine();
         }
 
 
-        public static double F_dblParameterAnalysisAverage(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
+        //Метод расчета средних значений параметров.
+        public static void F_voiParameterAnalysisAverage(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
         {
             double dblResult = 0;
 
@@ -682,72 +761,228 @@ namespace Airline
                 }
             }
 
-            dblResult = dblResult / Airline[intAirlineNumber].Airplane.Count;
+            if (intParameterNumber == 1)
+            {
+                Console.WriteLine($"Средняя вместимость пассажиров: {dblResult / Airline[intAirlineNumber].Airplane.Count}");
+                Console.WriteLine();
+            }
+            else if (intParameterNumber == 2)
+            {
+                Console.WriteLine($"Средняя грузоподъемность: {dblResult / Airline[intAirlineNumber].Airplane.Count}");
+                Console.WriteLine();
+            }
+            else if (intParameterNumber == 3)
+            {
+                Console.WriteLine($"Средняя дальность полета: {dblResult / Airline[intAirlineNumber].Airplane.Count}");
+                Console.WriteLine();
+            }
+            else if (intParameterNumber == 4)
+            {
+                Console.WriteLine($"Среднее количество потребляемого топлива: {dblResult / Airline[intAirlineNumber].Airplane.Count}");
+                Console.WriteLine();
+            }
 
-            return (dblResult);
+            Console.WriteLine("Для продолжения нажмите Enter.");
+            string? strPause = Console.ReadLine();
         }
 
 
         public static void F_dblParameterAnalysisSorting(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
         {
-            for (int int1 = 0; int1 <= Airline[intAirlineNumber].Airplane.Count - 1; int1++)
-            {
-                if (intParameterNumber == 1)
-                {
-                    var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.intPassengerCapacity).ToList();
-                }
-                else if (intParameterNumber == 2)
-                {
-                    var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.dblCargoCapacity).ToList();
-                }
-                else if (intParameterNumber == 3)
-                {
-                    var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.dblFlightRange).ToList();
-                }
-                else if (intParameterNumber == 4)
-                {
-                    var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.dblFuelConsumption).ToList();
-                }
-            }
-
             if (intParameterNumber == 1)
             {
+                var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.intPassengerCapacity).ToList();
+                    
                 Console.WriteLine("Результат сортировки по вместимости пассажиров.");
+                Console.WriteLine();
+                Console.WriteLine("Авиакомпания:");
+                Console.WriteLine(Airline[intAirlineNumber].strName);
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varSorting.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varSorting[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varSorting[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varSorting[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varSorting[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varSorting[int2].dblFuelConsumption}");
+                }
             }
             else if (intParameterNumber == 2)
             {
+                var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.dblCargoCapacity).ToList();
+                    
                 Console.WriteLine("Результат сортировки по грузоподъемности.");
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varSorting.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varSorting[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varSorting[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varSorting[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varSorting[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varSorting[int2].dblFuelConsumption}");
+                }
             }
             else if (intParameterNumber == 3)
             {
+                var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.dblFlightRange).ToList();
+                    
                 Console.WriteLine("Результат сортировки по дальности полета.");
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varSorting.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varSorting[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varSorting[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varSorting[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varSorting[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varSorting[int2].dblFuelConsumption}");
+                }
             }
             else if (intParameterNumber == 4)
             {
+                var varSorting = Airline[intAirlineNumber].Airplane.OrderBy(x => x.dblFuelConsumption).ToList();
+
                 Console.WriteLine("Результат сортировки по количеству потребляемого топлива.");
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varSorting.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varSorting[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varSorting[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varSorting[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varSorting[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varSorting[int2].dblFuelConsumption}");
+                }
             }
 
-            Console.WriteLine($"     Воздушное судно:");
-
-            for (int int1 = 0; int1 <= Airline[intAirlineNumber].Airplane.Count - 1; int1++)
-            {
-                Console.WriteLine($"     {Airline[intAirlineNumber].Airplane[int1].strName}");
-                Console.WriteLine($"          Параметры:");
-                Console.WriteLine($"          Вместимость пассажиров: {Airline[intAirlineNumber].Airplane[int1].intPassengerCapacity}");
-                Console.WriteLine($"          Вместимость груза (кг): {Airline[intAirlineNumber].Airplane[int1].dblCargoCapacity}");
-                Console.WriteLine($"          Дальность полета (км): {Airline[intAirlineNumber].Airplane[int1].dblFlightRange}");
-                Console.WriteLine($"          Количество потребляемого топлива (л): {Airline[intAirlineNumber].Airplane[int1].dblFuelConsumption}");
-            }
-
-            
-
-
+            Console.WriteLine();
+            Console.WriteLine("Для продолжения нажмите Enter.");
+            string? strPause = Console.ReadLine();
         }
 
 
         public static void F_dblParameterAnalysisRequest(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
         {
+            double dblMin;
+            double dblMax;
+            
+            if (intParameterNumber == 1)
+            {
+                Console.WriteLine("Введите минимальное значение вместимости пассажиров:");
+                dblMin = Convert.ToInt32(Console.ReadLine());
+                
+                Console.WriteLine("Введите максимальное значение вместимости пассажиров:");
+                dblMax = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
 
+                var varRequest = Airline[intAirlineNumber].Airplane.Where(x => x.intPassengerCapacity >= dblMin && x.intPassengerCapacity <= dblMax).ToList();
+
+                Console.WriteLine("Результат запроса на диапазон вместимости пассажиров.");
+                Console.WriteLine();
+                Console.WriteLine("Авиакомпания:");
+                Console.WriteLine(Airline[intAirlineNumber].strName);
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varRequest.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varRequest[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varRequest[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varRequest[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varRequest[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varRequest[int2].dblFuelConsumption}");
+                }
+            }
+            else if (intParameterNumber == 2)
+            {
+                Console.WriteLine("Введите минимальное значение грузоподъемности:");
+                dblMin = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Введите максимальное значение грузоподъемности:");
+                dblMax = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
+
+                var varRequest = Airline[intAirlineNumber].Airplane.Where(x => x.dblCargoCapacity >= dblMin && x.dblCargoCapacity <= dblMax).ToList();
+
+                Console.WriteLine("Результат запроса на диапазон грузоподъемности.");
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varRequest.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varRequest[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varRequest[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varRequest[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varRequest[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varRequest[int2].dblFuelConsumption}");
+                }
+            }
+            else if (intParameterNumber == 3)
+            {
+                Console.WriteLine("Введите минимальное значение дальности полета:");
+                dblMin = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Введите максимальное значение дальности полета:");
+                dblMax = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
+
+                var varRequest = Airline[intAirlineNumber].Airplane.Where(x => x.dblFlightRange >= dblMin && x.dblFlightRange <= dblMax).ToList();
+
+                Console.WriteLine("Результат запроса на диапазон дальности полета.");
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varRequest.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varRequest[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varRequest[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varRequest[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varRequest[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varRequest[int2].dblFuelConsumption}");
+                }
+            }
+            else if (intParameterNumber == 4)
+            {
+                Console.WriteLine("Введите минимальное значение количества потребляемого топлива:");
+                dblMin = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Введите максимальное значение количества потребляемого топлива:");
+                dblMax = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
+
+                var varRequest = Airline[intAirlineNumber].Airplane.Where(x => x.dblFuelConsumption >= dblMin && x.dblFuelConsumption <= dblMax).ToList();
+
+                Console.WriteLine("Результат запроса на диапазон количества потребляемого топлива.");
+
+                Console.WriteLine($"     Воздушное судно:");
+
+                for (int int2 = 0; int2 <= varRequest.Count - 1; int2++)
+                {
+                    Console.WriteLine($"     {varRequest[int2].strName}");
+                    Console.WriteLine($"          Параметры:");
+                    Console.WriteLine($"          Вместимость пассажиров: {varRequest[int2].intPassengerCapacity}");
+                    Console.WriteLine($"          Вместимость груза (кг): {varRequest[int2].dblCargoCapacity}");
+                    Console.WriteLine($"          Дальность полета (км): {varRequest[int2].dblFlightRange}");
+                    Console.WriteLine($"          Количество потребляемого топлива (л): {varRequest[int2].dblFuelConsumption}");
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Для продолжения нажмите Enter.");
+            string? strPause = Console.ReadLine();
         }
     }
 }
