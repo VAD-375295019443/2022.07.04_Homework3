@@ -787,6 +787,7 @@ namespace Airline
         }
 
 
+        //Метод сортировки.
         public static void F_dblParameterAnalysisSorting(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
         {
             if (intParameterNumber == 1)
@@ -871,6 +872,7 @@ namespace Airline
         }
 
 
+        //Метод запроса.
         public static void F_dblParameterAnalysisRequest(int intAirlineNumber, List<claAirline> Airline, int intParameterNumber)
         {
             double dblMin;
