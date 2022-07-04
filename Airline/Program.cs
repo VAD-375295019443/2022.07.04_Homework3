@@ -460,39 +460,6 @@ namespace Airline
         }
 
 
-        //Класс воздушных судов.
-        public class claAirplane
-        {
-            public string strName; //Название самолета (тип).
-            public int intPassengerCapacity; //Вместимость пассажиров (количество посадочных мест).
-            public double dblCargoCapacity; //Вместимость груза (кг).
-            public double dblFlightRange; //Дальность полета (км).
-            public double dblFuelConsumption; //Количество потребляемого топлива (л).
-
-            public claAirplane(string strName, int intPassengerCapacity, double dblCargoCapacity, double dblFlightRange, double dblFuelConsumption)
-            {
-                this.strName = strName;
-                this.intPassengerCapacity = intPassengerCapacity;
-                this.dblCargoCapacity = dblCargoCapacity;
-                this.dblFlightRange = dblFlightRange;
-                this.dblFuelConsumption = dblFuelConsumption;
-            }
-        }
-
-
-        //Класс авиакомпаний.
-        public class claAirline
-        {
-            public string strName; //Название авиакомпаний.
-            public List<claAirplane> Airplane = new List<claAirplane>(); //Создаем коллекцию самолетов.
-            
-            public claAirline(string strName)
-            {
-                this.strName = strName;
-            }
-        }
-
-
         //Считываем базу данных воздушных судов из файла в коллекцию.
         public static void F_ReadDatabaseAirplane(ref List<claAirplane> DatabaseAirplane)
         {
