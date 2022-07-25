@@ -638,7 +638,7 @@ namespace Airline
         {
             string strPath = @"d:\Registry\Airline";
 
-            if (Directory.Exists(strPath) == false) //Если директории не существует.
+            if (Directory.Exists(strPath) == false) //Если директория не существует.
             {
                 Directory.CreateDirectory(strPath); //Создаем.
             }
